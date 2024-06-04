@@ -18,7 +18,7 @@ export class WeatherService {
     this.apiKey = process.env.OPENWEATHER_API_KEY;
     this.apiUrl = 'https://api.openweathermap.org/data/2.5';
   }
-
+  // Method to find weather data by city and date
   private async findWeatherByCityAndDate(
     city: string,
     date: Date,
@@ -36,7 +36,7 @@ export class WeatherService {
       })
       .exec();
   }
-
+  // Method to get current weather
   async getWeather(city: string): Promise<any> {
     const today = new Date();
     const existingWeather = await this.findWeatherByCityAndDate(city, today);
@@ -62,9 +62,9 @@ export class WeatherService {
 
     return weatherData;
   }
-
+  // Method to get weather forecast
   async getWeatherForecast(city: string): Promise<any> {
-    const url = `${this.apiUrl}/forecast?q=${city}&appid=${this.apiKey}`;
+    const url = `${this.apiUrl}/forecast?q=${city}&appid=${this.apiKey}&units=metric`;
     const response = await firstValueFrom(this.httpService.get(url));
     const weatherData = response.data;
 
